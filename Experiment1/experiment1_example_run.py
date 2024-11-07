@@ -5,6 +5,28 @@ import numpy as np
 import pathlib
 import datetime
 
+def get_response(deadline, disallowedKeys, resp_key):
+    max_wait_time = deadline - core.getTime()
+    key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys + [resp_key], timeStamped=True)
+    if key_out is not None:
+        print('')
+        print(key_out)
+        print('')
+        if key_out[0][0] in disallowedKeys:
+            raise Exception('Manual quit!')
+        else:
+            pressed, key_time = key_out[0]
+            print(f'pressed {pressed}, at {key_time})')
+    # Wait for quit key if we've already got a response
+    max_wait_time = deadline - core.getTime()
+    key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys)
+    if key_out is not None:
+        print('')
+        print(key_out)
+        print('')
+        raise Exception('Manual quit!')
+
+
 # Parameters
 screenFps = 60
 ifi = 1 / screenFps
@@ -12,7 +34,7 @@ deadlinePct = 0.1 # percent of a screen refresh interval by which
 whileLoopDelta = 0.001 # 1 ms
 # to return control in while loops
 
-imageFolder = pathlib.Path('C:/Users/jrmac/UNR_PSY_427_627_Fa2024_JRM/Assignments/fLoc_stimuli').expanduser()
+imageFolder = pathlib.Path('~/Teaching/PSY427_627/datasets/fLoc_stimuli/').expanduser()
 subjectNumber = 1
 fullScreen = False # false for debugging, True to run
 screenSize = [500,500] #[1440, 900] # For mac laptop, may need to change for you! 
@@ -111,50 +133,14 @@ try:
         fixation.draw()
         # Use any remaining time before presentation deadline to check for response keys
         deadline = (t0 + float(onsetTime) - deadlinePct * ifi)
-        max_wait_time = deadline - core.getTime()
-        key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys + [resp_key], timeStamped=True)
-        if key_out is not None:
-            print('')
-            print(key_out)
-            print('')
-            if key_out[0][0] in disallowedKeys:
-                raise Exception('Manual quit!')
-            else:
-                pressed, key_time = key_out[0]
-                print(f'pressed {pressed}, at {key_time})')
-        # Wait for quit key if we've already got a response
-        max_wait_time = deadline - core.getTime()
-        key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys)
-        if key_out is not None:
-            print('')
-            print(key_out)
-            print('')
-            raise Exception('Manual quit!')
+        get_response(deadline, disallowedKeys, resp_key)
 
         flipXX = win.flip()
         flipOnset = core.getTime() # Don't trust flipXX
 
         # New deadline for image down
         deadline = (t0 + float(offsetTime) - deadlinePct * ifi)
-        max_wait_time = deadline - core.getTime()
-        key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys + [resp_key], timeStamped=True)
-        if key_out is not None:
-            print('')
-            print(key_out)
-            print('')
-            if key_out[0][0] in disallowedKeys:
-                raise Exception('Manual quit!')
-            else:
-                pressed, key_time = key_out[0]
-                print(f'pressed {pressed}, at {key_time})')
-        # Wait for quit key if we've already got a response
-        max_wait_time = deadline - core.getTime()
-        key_out = event.waitKeys(maxWait=max_wait_time, keyList=disallowedKeys)
-        if key_out is not None:
-            print('')
-            print(key_out)
-            print('')
-            raise Exception('Manual quit!')
+        get_response(deadline, disallowedKeys, resp_key)
 
         if isTarget:
             timeFrom = flipOnset

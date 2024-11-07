@@ -13,4 +13,10 @@ disp(t2-t1)
 t3 = GetSecs;
 WaitSecs('untiltime', t3+2)
 t4 = GetSecs;
+<<<<<<< HEAD
 disp(t4-t3)
+=======
+disp(t4-t)
+
+
+>>>>>>> fb45f784147950a166e4c7aafa6bf9f26f43bdbc

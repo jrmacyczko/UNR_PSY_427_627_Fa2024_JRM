@@ -8,29 +8,29 @@ subjectNumber = 1
 sname = f'subject{subjectNumber:02d}_plan.npy'
 blockRepeats = 2
 blockLength = 12 # seconds
-imageDuration = 0.5 # seconds
-imageISI = 0.1 # inter-stimulus interval, seconds
+imageDuration = 0.75 # seconds
+imageISI = 0.2 # inter-stimulus interval, seconds
 blockISI = 3 # gap between blocks, seconds
 # Block types & sub-categories (categories in alphabetical order)
 block_categories = {
-    'bodies':['limb','body'],
-    'characters':['word','number'],
-    'faces':['adult','child'],
-    'objects':['car','instrument'],
-    'places':['house','corridor'],
+    'bodies':['limb'],#,'body'],
+    'characters':['word'],#,'number'],
+    'faces':['adult'],#,'child'],
+    'objects':['car'],#,'instrument'],
+    'places':['house'],#,'corridor'],
     'scrambled':['scrambled']}
 block_category_names = sorted(list(block_categories.keys()))
 # Image file location (assumes all images are in same folder, as they 
 # should be if you downloaded and unzipped fLoc from here: 
 # )
-imageFolder = pathlib.Path('~/Teaching/PSY427_627/datasets/fLoc_stimuli/')
+imageFolder = pathlib.Path('C:/Users/jrmac/UNR_PSY_427_627_Fa2024_JRM/ClassDemos/fLoc_stimuli')
 imageFolder = imageFolder.expanduser()
 imageType = 'jpg'
 
 # Experiment parameters, computed
 # Explicit computation of these variables will make the code clearer, and
 # our life easier, below
-imagesPerBlock = blockLength / (imageDuration + imageISI)
+imagesPerBlock = int (blockLength / (imageDuration + imageISI))
 if imagesPerBlock % 1: # i.e., if not whole number
     print("block length does not divide evenly into imageDuration + imageISI!")
     # Stop here w/ error
