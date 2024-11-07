@@ -1,0 +1,7 @@
+Key, Reaction Time, Correctness
+right, 0.869, Correct
+right, 0.473, Correct
+left, 0.429, Correct
+left, 0.455, Correct
+right, 0.449, Correct
+left, 0.602, Correct

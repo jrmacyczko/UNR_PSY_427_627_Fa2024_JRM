@@ -45,3 +45,6 @@ for frame in range(n_steps):
                               pos=circ_pos)
     circ_stim.draw()
     win.flip()
+
+core.wait(1)    
+win.close()

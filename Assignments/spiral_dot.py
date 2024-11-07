@@ -25,4 +25,5 @@ for i in range(len(x)):
     win.flip()
     core.wait(.01)
 
+core.wait(1)
 win.close()

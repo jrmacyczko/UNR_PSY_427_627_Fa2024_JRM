@@ -41,7 +41,7 @@ win.flip()
 
 #%% Draw image
 image_dir = '/Users/mark/Teaching/PSY427_627/datasets/fLoc_stimuli/';
-image_file = os.path.join(image_dir, 'instrument-85.jpg')
+image_file = os.path.join(face_images, 'instrument-85.jpg')
 img = visual.ImageStim(win, image=image_file, units='pix', size=(300,300))
 img.draw()
 win.flip()
